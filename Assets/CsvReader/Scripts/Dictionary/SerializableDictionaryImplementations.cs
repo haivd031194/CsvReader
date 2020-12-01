@@ -8,9 +8,10 @@ using Zitga.CSVSerializer.Dictionary;
 // ---------------
 [Serializable]
 public class StringIntDictionary : SerializableDictionary<string, int> {}
- 
+
 // ---------------
-//  GameObject => Float
+//  String => String
 // ---------------
 [Serializable]
-public class GameObjectFloatDictionary : SerializableDictionary<GameObject, float> {}
+public class StringStringDictionary : SerializableDictionary<string, string> {}
+

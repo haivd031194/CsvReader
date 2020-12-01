@@ -44,7 +44,7 @@ public class SpawnEnemyPostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                gm.spawnEnemies = CSVSerializer.Deserialize<SpawnEnemyExample.SpawnEnemy>(data.text);
+                gm.spawnEnemies = CsvReader.CsvReader.Deserialize<SpawnEnemyExample.SpawnEnemy>(data.text);
 
                 EditorUtility.SetDirty(gm);
                 AssetDatabase.SaveAssets();
