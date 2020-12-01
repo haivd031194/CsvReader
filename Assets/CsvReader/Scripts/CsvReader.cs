@@ -203,7 +203,7 @@ namespace CsvReader
             return v;
         }
 
-        private static List<string[]> ParseCsv(string text, char separator = ',')
+        public static List<string[]> ParseCsv(string text, char separator = ',')
         {
             List<string[]> lines = new List<string[]>();
             List<string> line = new List<string>();
