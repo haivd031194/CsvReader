@@ -74,7 +74,7 @@ public class GroupPostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
                 
-                gm.shopGroups = CSVSerializer.Deserialize<ShopGroupExample.ShopGroup>(data.text);
+                gm.shopGroups = CsvReader.CsvReader.Deserialize<ShopGroupExample.ShopGroup>(data.text);
 
                 foreach (var shopGroup in gm.shopGroups)
                 {

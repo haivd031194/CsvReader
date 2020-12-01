@@ -38,7 +38,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                gm.m_Sample = CSVSerializer.Deserialize<CSVImportExample.Sample>(data.text);
+                gm.m_Sample = CsvReader.CsvReader.Deserialize<CSVImportExample.Sample>(data.text);
 
                 EditorUtility.SetDirty(gm);
                 AssetDatabase.SaveAssets();
@@ -57,7 +57,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                var items = CSVSerializer.Deserialize<RankingData.Item>(data.text);
+                var items = CsvReader.CsvReader.Deserialize<RankingData.Item>(data.text);
 
                 foreach (var item in items)
                 {
@@ -70,25 +70,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                 Debug.Log("Reimported Asset: " + str);
 #endif
             }
-            if (str.IndexOf("/lan.csv") != -1)
-            {
-                TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
-                string assetfile = str.Replace(".csv", ".asset");
-                LanguageStringData gm = AssetDatabase.LoadAssetAtPath<LanguageStringData>(assetfile);
-                if (gm == null)
-                {
-                    gm = ScriptableObject.CreateInstance<LanguageStringData>();
-                    AssetDatabase.CreateAsset(gm, assetfile);
-                }
-
-                gm.m_Items = CSVSerializer.Deserialize<LanguageStringData.Item>(data.text);
-
-                EditorUtility.SetDirty(gm);
-                AssetDatabase.SaveAssets();
-#if DEBUG_LOG || UNITY_EDITOR
-                Debug.Log("Reimported Asset: " + str);
-#endif
-            }
+            
             if (str.IndexOf("/const.csv") != -1)
             {
                 TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
@@ -100,7 +82,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                ConstData readdata = CSVSerializer.DeserializeIdValue<ConstData>(data.text);
+                ConstData readdata = CsvReader.CsvReader.DeserializeIdValue<ConstData>(data.text);
                 EditorUtility.CopySerialized(readdata, gm);
 
                 EditorUtility.SetDirty(gm);
