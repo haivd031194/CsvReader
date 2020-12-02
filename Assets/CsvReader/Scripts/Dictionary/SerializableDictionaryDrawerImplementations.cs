@@ -1,4 +1,4 @@
-namespace CsvReader.Scripts.Dictionary
+namespace Zitga.CsvTools.Scripts.Dictionary
 {
 
 // ---------------

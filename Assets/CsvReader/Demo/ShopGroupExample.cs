@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Zitga.CSVSerializer.Dictionary;
+using Zitga.CsvTools;
 
 public class ShopGroupExample : ScriptableObject
 {
@@ -74,7 +73,7 @@ public class GroupPostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
                 
-                gm.shopGroups = CsvReader.CsvReader.Deserialize<ShopGroupExample.ShopGroup>(data.text);
+                gm.shopGroups = CsvReader.Deserialize<ShopGroupExample.ShopGroup>(data.text);
 
                 foreach (var shopGroup in gm.shopGroups)
                 {

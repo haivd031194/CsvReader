@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Zitga.CSVSerializer.Dictionary;
 
-namespace CsvReader.Demo
+namespace Zitga.CsvTools.Demo
 {
     public class LanguageDataExample : ScriptableObject
     {
