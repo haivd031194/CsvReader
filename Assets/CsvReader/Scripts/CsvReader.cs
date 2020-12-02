@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Zitga.CsvTools
 {
@@ -32,7 +34,8 @@ namespace Zitga.CsvTools
         private static object CreateArray(Type type, List<string[]> rows)
         {
             // Need test for sure logic
-            //Test(rows);
+            //TestCountNumberElement(rows);
+            //TestConvertSnakeCaseToCamelCase();
 
             var (countElement, startRows) = CountNumberElement(1, 0, 0, rows);
             Array arrayValue = Array.CreateInstance(type, countElement);
@@ -43,9 +46,11 @@ namespace Zitga.CsvTools
                 string id = rows[0][i];
                 if (IsValidKeyFormat(id))
                 {
-                    if (!table.ContainsKey(id))
+                    var camelId = ConvertSnakeCaseToCamelCase(id);
+                    
+                    if (!table.ContainsKey(camelId))
                     {
-                        table.Add(id, i);
+                        table.Add(camelId, i);
                     }
                     else
                     {
@@ -427,8 +432,29 @@ namespace Zitga.CsvTools
             return GetType(fullName);
         }
 
+        private static string ConvertSnakeCaseToCamelCase(string snakeCase)
+        {
+            var strings = snakeCase.Split(new[] {"_"}, StringSplitOptions.RemoveEmptyEntries);
+            var result = strings[0];
+            for (int i = 1; i < strings.Length; i++)
+            {
+                var currentString = strings[i];
+                result += char.ToUpperInvariant(currentString[0]) + currentString.Substring(1, currentString.Length - 1);
+            }
+
+            return result;
+        }
+
 #if UNITY_EDITOR
-        private static void Test(List<string[]> rows)
+
+        private static void TestConvertSnakeCaseToCamelCase()
+        {
+            Assert.AreEqual(ConvertSnakeCaseToCamelCase("id"), "id");
+            Assert.AreEqual(ConvertSnakeCaseToCamelCase("id_hero"), "idHero");
+            Assert.AreEqual(ConvertSnakeCaseToCamelCase("name_of_space"), "nameOfSpace");
+            Assert.AreEqual(ConvertSnakeCaseToCamelCase("name_3_5_Hero"), "name35Hero");
+        }
+        private static void TestCountNumberElement(List<string[]> rows)
         {
             // var (count, startRows) = CountNumberElement(1, 0, 0, rows);
             // var result = new List<int>() {1, 13};

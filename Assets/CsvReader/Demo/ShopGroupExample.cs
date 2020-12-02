@@ -2,25 +2,26 @@
 using UnityEditor;
 using UnityEngine;
 using Zitga.CSVSerializer.Dictionary;
-using Zitga.CsvTools;
 
-public class ShopGroupExample : ScriptableObject
+namespace Zitga.CsvTools.Tutorials
 {
-    [System.Serializable]
+    public class ShopGroupExample : ScriptableObject
+{
+    [Serializable]
     public class Resource
     {
-        public int res_type;
-        public int res_id;
-        public int res_number;
+        public int resType;
+        public int resId;
+        public int resNumber;
     }
-    [System.Serializable]
+    [Serializable]
     public class Reward
     {
-        public int money_type;
-        public int money_value;
+        public int moneyType;
+        public int moneyValue;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class RewardStock
     {
         public int id;
@@ -30,20 +31,20 @@ public class ShopGroupExample : ScriptableObject
         public Reward reward;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class Shop
     {
-        public int shop_type;
-        public int group_rate;
+        public int shopType;
+        public int groupRate;
         public RewardStock[] rewardStocks;
     }
     
-    [System.Serializable]
+    [Serializable]
     public class ShopGroup
     {
-        public int group_id;
-        public int[] stage_min;
-        public int stage_max;
+        public int groupId;
+        public int[] stageMin;
+        public int stageMax;
         public Shop[] shops;
     }
 
@@ -62,31 +63,31 @@ public class GroupPostprocessor : AssetPostprocessor
     {
         foreach (string str in importedAssets)
         {
-            if (str.IndexOf("/shop_group.csv") != -1)
+            if (str.IndexOf("/shop_group.csv", StringComparison.Ordinal) != -1)
             {
                 TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
-                string assetfile = str.Replace(".csv", ".asset");
-                ShopGroupExample gm = AssetDatabase.LoadAssetAtPath<ShopGroupExample>(assetfile);
+                string assetFile = str.Replace(".csv", ".asset");
+                ShopGroupExample gm = AssetDatabase.LoadAssetAtPath<ShopGroupExample>(assetFile);
                 if (gm == null)
                 {
                     gm = ScriptableObject.CreateInstance<ShopGroupExample>();
-                    AssetDatabase.CreateAsset(gm, assetfile);
+                    AssetDatabase.CreateAsset(gm, assetFile);
                 }
                 
                 gm.shopGroups = CsvReader.Deserialize<ShopGroupExample.ShopGroup>(data.text);
-
+                
+                gm.shopDict.Clear();
                 foreach (var shopGroup in gm.shopGroups)
                 {
-                    gm.shopDict.Add(shopGroup.group_id, shopGroup);
+                    gm.shopDict.Add(shopGroup.groupId, shopGroup);
                 }
                 
                 EditorUtility.SetDirty(gm);
                 AssetDatabase.SaveAssets();
-#if DEBUG_LOG || UNITY_EDITOR
-                Debug.Log("Reimported Asset: " + str);
-#endif
+                Debug.Log("Reimport Asset: " + str);
             }
         }
     }
 }
 #endif
+}
