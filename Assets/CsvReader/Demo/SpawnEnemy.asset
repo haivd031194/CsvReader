@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
   m_Name: SpawnEnemy
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemyExample
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::SpawnEnemyExample
   spawnEnemies:
   - time_start: 0
     time_end: -1
