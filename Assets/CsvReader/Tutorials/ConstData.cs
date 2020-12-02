@@ -17,7 +17,7 @@ namespace Zitga.CsvTools.Tutorials
     }
 
 #if UNITY_EDITOR
-    public class CSVImportExamplePostprocessor : AssetPostprocessor
+    public class ConstPostprocessor : AssetPostprocessor
     {
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
             string[] movedFromAssetPaths)

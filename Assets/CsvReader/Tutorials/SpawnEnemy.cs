@@ -35,7 +35,7 @@ namespace Zitga.CsvTools.Tutorials
         {
             foreach (string str in importedAssets)
             {
-                if (str.IndexOf("/SpawnEnemy.csv", StringComparison.Ordinal) != -1)
+                if (str.IndexOf("/spawn_enemy.csv", StringComparison.Ordinal) != -1)
                 {
                     TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
                     string assetFile = str.Replace(".csv", ".asset");
