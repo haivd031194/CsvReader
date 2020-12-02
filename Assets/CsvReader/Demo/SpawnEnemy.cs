@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,13 +9,13 @@ namespace Zitga.CsvTools.Tutorials
 {
     public class SpawnEnemyExample : ScriptableObject
     {
-        [System.Serializable]
+        [Serializable]
         public class Bonus
         {
             public int typeId, number, interval, bonusHp, bonusMoveSpeed, bonusAtk;
         }
     
-        [System.Serializable]
+        [Serializable]
         public class SpawnEnemy
         {
             public int timeStart;
@@ -34,24 +35,22 @@ namespace Zitga.CsvTools.Tutorials
         {
             foreach (string str in importedAssets)
             {
-                if (str.IndexOf("/SpawnEnemy.csv") != -1)
+                if (str.IndexOf("/SpawnEnemy.csv", StringComparison.Ordinal) != -1)
                 {
                     TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
-                    string assetfile = str.Replace(".csv", ".asset");
-                    SpawnEnemyExample gm = AssetDatabase.LoadAssetAtPath<SpawnEnemyExample>(assetfile);
+                    string assetFile = str.Replace(".csv", ".asset");
+                    SpawnEnemyExample gm = AssetDatabase.LoadAssetAtPath<SpawnEnemyExample>(assetFile);
                     if (gm == null)
                     {
                         gm = ScriptableObject.CreateInstance<SpawnEnemyExample>();
-                        AssetDatabase.CreateAsset(gm, assetfile);
+                        AssetDatabase.CreateAsset(gm, assetFile);
                     }
     
                     gm.spawnEnemies = CsvReader.Deserialize<SpawnEnemyExample.SpawnEnemy>(data.text);
     
                     EditorUtility.SetDirty(gm);
                     AssetDatabase.SaveAssets();
-    #if DEBUG_LOG || UNITY_EDITOR
-                    Debug.Log("Reimported Asset: " + str);
-    #endif
+                    Debug.Log("Reimport Asset: " + str);
                 }
             }
         }

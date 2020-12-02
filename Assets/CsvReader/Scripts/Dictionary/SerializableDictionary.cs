@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Zitga.CSVSerializer.Dictionary
+namespace Zitga.CsvTools
 {
     public abstract class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCallbackReceiver {
         [SerializeField]

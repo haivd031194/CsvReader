@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using Zitga.CSVSerializer.Dictionary;
 
-namespace Zitga.CsvTools.Demo
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace Zitga.CsvTools.Tutorials
 {
     public class LanguageDataExample : ScriptableObject
     {
@@ -39,9 +40,7 @@ namespace Zitga.CsvTools.Demo
                 
                     EditorUtility.SetDirty(gm);
                     AssetDatabase.SaveAssets();
-#if DEBUG_LOG || UNITY_EDITOR
                     Debug.Log("Reimport Asset: " + str);
-#endif
                 }
             }
         }

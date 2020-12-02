@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e440a7b1700019c4f9b10642a16f9ee5, type: 3}
-  m_Name: f1ranking2018
+  m_Name: ranking
   m_EditorClassIdentifier: 
   itemDict:
     keys: 0100000002000000030000000400000005000000
