@@ -1,7 +1,10 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
-using Zitga.CSVSerializer.Dictionary;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 namespace Zitga.CsvTools.Tutorials
 {
@@ -44,7 +47,7 @@ namespace Zitga.CsvTools.Tutorials
         {
             foreach (string str in importedAssets)
             {
-                if (str.IndexOf("/f1ranking2018.csv", StringComparison.Ordinal) != -1)
+                if (str.IndexOf("/ranking.csv", StringComparison.Ordinal) != -1)
                 {
                     TextAsset data = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
                     string assetFile = str.Replace(".csv", ".asset");

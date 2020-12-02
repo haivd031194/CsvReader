@@ -1,7 +1,9 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
-using Zitga.CSVSerializer.Dictionary;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Zitga.CsvTools.Tutorials
 {
