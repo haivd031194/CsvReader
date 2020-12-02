@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using Zitga.CsvTools;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -38,7 +36,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                gm.m_Sample = CsvReader.CsvReader.Deserialize<CSVImportExample.Sample>(data.text);
+                gm.m_Sample = CsvReader.Deserialize<CSVImportExample.Sample>(data.text);
 
                 EditorUtility.SetDirty(gm);
                 AssetDatabase.SaveAssets();
@@ -57,7 +55,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                var items = CsvReader.CsvReader.Deserialize<RankingData.Item>(data.text);
+                var items = CsvReader.Deserialize<RankingData.Item>(data.text);
 
                 foreach (var item in items)
                 {
@@ -82,7 +80,7 @@ public class CSVImportExamplePostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                ConstData readdata = CsvReader.CsvReader.DeserializeIdValue<ConstData>(data.text);
+                ConstData readdata = CsvReader.DeserializeIdValue<ConstData>(data.text);
                 EditorUtility.CopySerialized(readdata, gm);
 
                 EditorUtility.SetDirty(gm);

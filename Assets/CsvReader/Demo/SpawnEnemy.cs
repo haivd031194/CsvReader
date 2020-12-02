@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using Zitga.CSVSerializer.Dictionary;
+using Zitga.CsvTools;
 
 public class SpawnEnemyExample : ScriptableObject
 {
@@ -44,7 +41,7 @@ public class SpawnEnemyPostprocessor : AssetPostprocessor
                     AssetDatabase.CreateAsset(gm, assetfile);
                 }
 
-                gm.spawnEnemies = CsvReader.CsvReader.Deserialize<SpawnEnemyExample.SpawnEnemy>(data.text);
+                gm.spawnEnemies = CsvReader.Deserialize<SpawnEnemyExample.SpawnEnemy>(data.text);
 
                 EditorUtility.SetDirty(gm);
                 AssetDatabase.SaveAssets();
