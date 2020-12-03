@@ -33,10 +33,6 @@ namespace Zitga.CsvTools
 
         private static object CreateArray(Type type, List<string[]> rows)
         {
-            // Need test for sure logic
-            //TestCountNumberElement(rows);
-            //TestConvertSnakeCaseToCamelCase();
-
             var (countElement, startRows) = CountNumberElement(1, 0, 0, rows);
             Array arrayValue = Array.CreateInstance(type, countElement);
             Dictionary<string, int> table = new Dictionary<string, int>();
@@ -140,13 +136,29 @@ namespace Zitga.CsvTools
         static void SetValue(object v, FieldInfo fieldInfo, string value)
         {
             if (string.IsNullOrEmpty(value))
-                return;
+            {
+                var type = fieldInfo.FieldType;
+                if (type == typeof(string))
+                {
+                    value = string.Empty;
+                }else if (type == typeof(int) || type == typeof(float) || type == typeof(double))
+                {
+                    value = "0";
+                }else if (type == typeof(bool))
+                {
+                    value = "FALSE";
+                }
+                else
+                {
+                    throw new Exception("value is nil");
+                }
+            }
 
             if (fieldInfo.FieldType.IsArray)
             {
                 Type elementType = fieldInfo.FieldType.GetElementType();
                 string[] elem = value.Split(',', '~');
-                Array arrayValue = Array.CreateInstance(elementType, elem.Length);
+                Array arrayValue = Array.CreateInstance(elementType ?? throw new InvalidOperationException(), elem.Length);
                 for (int i = 0; i < elem.Length; i++)
                 {
                     if (elementType == typeof(string))
@@ -168,10 +180,6 @@ namespace Zitga.CsvTools
             }
             else if (fieldInfo.FieldType == typeof(string))
                 fieldInfo.SetValue(v, value);
-            else if (value.Equals(string.Empty))
-            {
-                fieldInfo.SetValue(v, 0);  
-            }
             else
             {
                 fieldInfo.SetValue(v, Convert.ChangeType(value, fieldInfo.FieldType));
@@ -444,38 +452,5 @@ namespace Zitga.CsvTools
 
             return result;
         }
-
-#if UNITY_EDITOR
-
-        private static void TestConvertSnakeCaseToCamelCase()
-        {
-            Assert.AreEqual(ConvertSnakeCaseToCamelCase("id"), "id");
-            Assert.AreEqual(ConvertSnakeCaseToCamelCase("id_hero"), "idHero");
-            Assert.AreEqual(ConvertSnakeCaseToCamelCase("name_of_space"), "nameOfSpace");
-            Assert.AreEqual(ConvertSnakeCaseToCamelCase("name_3_5_Hero"), "name35Hero");
-        }
-        private static void TestCountNumberElement(List<string[]> rows)
-        {
-            // var (count, startRows) = CountNumberElement(1, 0, 0, rows);
-            // var result = new List<int>() {1, 13};
-            // Assert.AreEqual(count == result.Count && !startRows.Except(result).Any(), true);
-            //
-            // var (count1, startRows1) = CountNumberElement(1, 3, 0, rows);
-            // var result1 = new List<int>() {1, 5, 9};
-            // Assert.AreEqual(count1 == result1.Count && !startRows1.Except(result1).Any(), true);
-            //
-            // var (count2, startRows2) = CountNumberElement(1, 5, 3, rows);
-            // var result2 = new List<int>() {1, 2, 3};
-            // Assert.AreEqual(count2 == result2.Count && !startRows2.Except(result2).Any(), true);
-            //
-            // var (count3, startRows3) = CountNumberElement(13, 3, 0, rows);
-            // var result3 = new List<int>() {13, 17, 21, 25};
-            // Assert.AreEqual(count3 == result3.Count && !startRows3.Except(result3).Any(), true);
-            //
-            // var (count4, startRows4) = CountNumberElement(13, 5, 3, rows);
-            // var result4 = new List<int>() {13, 14, 15, 16};
-            // Assert.AreEqual(count4 == result4.Count && !startRows4.Except(result4).Any(), true);
-        }
-#endif
     }
 }

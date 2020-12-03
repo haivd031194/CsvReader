@@ -39,6 +39,7 @@ namespace Zitga.CsvTools.Tutorials
         public int shopType;
         public int groupRate;
         public RewardStock[] rewardStocks;
+        public bool enable;
     }
     
     [Serializable]

@@ -53,6 +53,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 250
+      enable: 0
     - shopType: 2
       groupRate: 3
       rewardStocks:
@@ -96,6 +97,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 500
+      enable: 1
     - shopType: 3
       groupRate: 2
       rewardStocks:
@@ -139,6 +141,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 400
+      enable: 0
   - groupId: 2
     stageMin: 64000000
     stageMax: 600
@@ -186,6 +189,7 @@ MonoBehaviour:
         reward:
           moneyType: 0
           moneyValue: 100000
+      enable: 0
     - shopType: 2
       groupRate: 30
       rewardStocks:
@@ -229,6 +233,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 500
+      enable: 0
     - shopType: 3
       groupRate: 20
       rewardStocks:
@@ -272,6 +277,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 400
+      enable: 0
     - shopType: 4
       groupRate: 20
       rewardStocks:
@@ -318,6 +324,7 @@ MonoBehaviour:
         reward:
           moneyType: 1
           moneyValue: 400
+      enable: 0
   shopDict:
     keys: 0100000002000000
     values:
@@ -361,6 +368,7 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 250
+        enable: 0
       - shopType: 2
         groupRate: 3
         rewardStocks:
@@ -404,6 +412,7 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 500
+        enable: 1
       - shopType: 3
         groupRate: 2
         rewardStocks:
@@ -447,6 +456,7 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 400
+        enable: 0
     - groupId: 2
       stageMin: 64000000
       stageMax: 600
@@ -494,6 +504,7 @@ MonoBehaviour:
           reward:
             moneyType: 0
             moneyValue: 100000
+        enable: 0
       - shopType: 2
         groupRate: 30
         rewardStocks:
@@ -537,6 +548,7 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 500
+        enable: 0
       - shopType: 3
         groupRate: 20
         rewardStocks:
@@ -580,6 +592,7 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 400
+        enable: 0
       - shopType: 4
         groupRate: 20
         rewardStocks:
@@ -626,3 +639,4 @@ MonoBehaviour:
           reward:
             moneyType: 1
             moneyValue: 400
+        enable: 0
