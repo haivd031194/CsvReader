@@ -1,0 +1,7 @@
+id,sg_product_id,res_type,res_id,res_number,res_data,duration_in_days,instant_res_type,instant_res_id,instant_res_number,instant_res_data,allow_skip_video,price,trial_duration_in_days
+1,SE033,2,51,3,,30,2,1,100,,FALSE,19.99,-1
+,,,,,,,2,2,1000,,,,
+2,SE034,2,1,100,,30,2,1,300,,FALSE,4.99,-1
+,,,,,,,2,2,250,,,,
+3,SE035,2,1,380,,30,2,1,900,,TRUE,14.99,3
+,,,,,,,2,2,750,,,,

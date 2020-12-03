@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8661bc6ad279cb44ab8c7359e2ca558f, type: 3}
+  m_Name: purchase_subscription_pack
+  m_EditorClassIdentifier: 
+  shopGroups:
+  - id: 1
+    sgProductId: SE033
+    reward:
+      resType: 2
+      resId: 51
+      resNumber: 3
+      resData: 0
+    instantReward:
+    - resType: 2
+      resId: 51
+      resNumber: 3
+      resData: 0
+    allowSkipVideo: 0
+    price: 19.99
+    trialDurationInDays: -1
+  - id: 2
+    sgProductId: SE034
+    reward:
+      resType: 2
+      resId: 1
+      resNumber: 100
+      resData: 0
+    instantReward:
+    - resType: 2
+      resId: 1
+      resNumber: 100
+      resData: 0
+    allowSkipVideo: 0
+    price: 4.99
+    trialDurationInDays: -1
+  - id: 3
+    sgProductId: SE035
+    reward:
+      resType: 2
+      resId: 1
+      resNumber: 380
+      resData: 0
+    instantReward:
+    - resType: 2
+      resId: 1
+      resNumber: 380
+      resData: 0
+    allowSkipVideo: 1
+    price: 14.99
+    trialDurationInDays: 3
