@@ -6,6 +6,8 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+#if UNITY_EDITOR
+
 namespace Zitga.CsvTools
 {
     public static class CsvReader
@@ -42,8 +44,8 @@ namespace Zitga.CsvTools
                 string id = rows[0][i];
                 if (IsValidKeyFormat(id))
                 {
-                    var camelId = ConvertSnakeCaseToCamelCase(id);
-                    
+                    var camelId = StringUtils.ConvertSnakeCaseToCamelCase(id);
+
                     if (!table.ContainsKey(camelId))
                     {
                         table.Add(camelId, i);
@@ -72,7 +74,8 @@ namespace Zitga.CsvTools
         {
             object v = Activator.CreateInstance(type);
 
-            FieldInfo[] fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo[] fieldInfo =
+                type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             var cols = rows[index];
             foreach (FieldInfo tmp in fieldInfo)
@@ -118,7 +121,7 @@ namespace Zitga.CsvTools
                         {
                             throw new Exception("Full name is nil");
                         }
-                    
+
                         Type elementType = GetType(typeName);
 
                         var objectIndex = GetObjectIndex(elementType, table);
@@ -141,10 +144,12 @@ namespace Zitga.CsvTools
                 if (type == typeof(string))
                 {
                     value = string.Empty;
-                }else if (type == typeof(int) || type == typeof(float) || type == typeof(double))
+                }
+                else if (type == typeof(int) || type == typeof(float) || type == typeof(double))
                 {
                     value = "0";
-                }else if (type == typeof(bool))
+                }
+                else if (type == typeof(bool))
                 {
                     value = "FALSE";
                 }
@@ -158,7 +163,8 @@ namespace Zitga.CsvTools
             {
                 Type elementType = fieldInfo.FieldType.GetElementType();
                 string[] elem = value.Split(',', '~');
-                Array arrayValue = Array.CreateInstance(elementType ?? throw new InvalidOperationException(), elem.Length);
+                Array arrayValue =
+                    Array.CreateInstance(elementType ?? throw new InvalidOperationException(), elem.Length);
                 for (int i = 0; i < elem.Length; i++)
                 {
                     if (elementType == typeof(string))
@@ -198,7 +204,8 @@ namespace Zitga.CsvTools
                     table.Add(rows[i][idCol].TrimEnd(' '), i);
             }
 
-            FieldInfo[] fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo[] fieldInfo =
+                type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             foreach (FieldInfo tmp in fieldInfo)
             {
                 if (table.ContainsKey(tmp.Name))
@@ -233,25 +240,26 @@ namespace Zitga.CsvTools
                         token.Append('\"');
                         i++;
                     }
-                    else switch (text[i])
-                    {
-                        case '\\' when i + 1 < text.Length && text[i + 1] == 'n':
-                            token.Append('\n');
-                            i++;
-                            break;
-                        case '\"':
+                    else
+                        switch (text[i])
                         {
-                            line.Add(token.ToString());
-                            token = new StringBuilder();
-                            quotes = false;
-                            if (i + 1 < text.Length && text[i + 1] == separator)
+                            case '\\' when i + 1 < text.Length && text[i + 1] == 'n':
+                                token.Append('\n');
                                 i++;
-                            break;
+                                break;
+                            case '\"':
+                            {
+                                line.Add(token.ToString());
+                                token = new StringBuilder();
+                                quotes = false;
+                                if (i + 1 < text.Length && text[i + 1] == separator)
+                                    i++;
+                                break;
+                            }
+                            default:
+                                token.Append(text[i]);
+                                break;
                         }
-                        default:
-                            token.Append(text[i]);
-                            break;
-                    }
                 }
                 else if (text[i] == '\r' || text[i] == '\n')
                 {
@@ -330,7 +338,8 @@ namespace Zitga.CsvTools
         private static int GetObjectIndex(Type type, Dictionary<string, int> table)
         {
             int minIndex = int.MaxValue;
-            FieldInfo[] fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo[] fieldInfo =
+                type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             foreach (FieldInfo tmp in fieldInfo)
             {
                 if (table.ContainsKey(tmp.Name))
@@ -439,18 +448,6 @@ namespace Zitga.CsvTools
 
             return GetType(fullName);
         }
-
-        private static string ConvertSnakeCaseToCamelCase(string snakeCase)
-        {
-            var strings = snakeCase.Split(new[] {"_"}, StringSplitOptions.RemoveEmptyEntries);
-            var result = strings[0];
-            for (int i = 1; i < strings.Length; i++)
-            {
-                var currentString = strings[i];
-                result += char.ToUpperInvariant(currentString[0]) + currentString.Substring(1, currentString.Length - 1);
-            }
-
-            return result;
-        }
     }
 }
+#endif
