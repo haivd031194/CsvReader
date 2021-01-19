@@ -1,6 +1,6 @@
+#if UNITY_EDITOR
 namespace Zitga.CsvTools
 {
-
 // ---------------
 //  String => Int
 // ---------------
@@ -16,7 +16,7 @@ namespace Zitga.CsvTools
     internal class SerializableStringIntTemplate : SerializableKeyValueTemplate<string, int>
     {
     }
-    
+
     // ---------------
 //  String => String
 // ---------------
@@ -33,3 +33,4 @@ namespace Zitga.CsvTools
     {
     }
 }
+#endif

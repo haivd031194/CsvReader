@@ -10,6 +10,7 @@ namespace Zitga.CsvTools
         public V value;
     }
 
+    #if UNITY_EDITOR
     public abstract class SerializableDictionaryDrawer<K, V> : PropertyDrawer
     {
         protected abstract SerializableKeyValueTemplate<K, V> GetTemplate();
@@ -218,4 +219,5 @@ namespace Zitga.CsvTools
             return result;
         }
     }
+    #endif
 }
